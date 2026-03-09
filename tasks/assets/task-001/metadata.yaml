@@ -1,0 +1,61 @@
+bundle_id: task-001-parser-defaults-v1
+task_id: task-001
+suite: substitution
+intended_mechanism: same-family substitution under lure pressure
+target_hypotheses:
+  - H2
+primary_proxy_metrics:
+  - represented_candidate_family_count_proxy
+  - recoverable_candidate_count_proxy
+  - avoidable_retirement_proxy
+language: python
+entrypoint: src/parser.py
+test_command: pytest -q tests/test_parser.py
+allowed_paths:
+  - src/parser.py
+  - tests/test_parser.py
+evidence_threshold: 0.64
+initial_contamination: 0.18
+reset_recovery_bonus: 0.08
+stale_continuation_penalty: 0.1
+compression_pressure: 0.05
+proxy_validity_note:
+  captures:
+    - whether same-family preserving moves keep a resolving parser branch recoverable
+    - whether lure branches displace the resolving family
+  cannot_capture:
+    - latent adequate-family truth outside this authored micro-task
+    - broader software-engineering difficulty
+  likely_false_positives:
+    - successful proxy recovery without a semantically best search policy
+  likely_false_negatives:
+    - local model formatting failure masking a potentially useful substitution
+branch_profiles:
+  - family_key: parser-defaults
+    base_score: 0.56
+    cost: 1.45
+    evidence: 0.22
+    alias_proxy: 0.08
+    staleness: 0.2
+    active: true
+  - family_key: parser-defaults
+    base_score: 0.54
+    cost: 0.85
+    evidence: 0.34
+    alias_proxy: 0.04
+    staleness: 0.1
+    active: false
+  - family_key: parser-fastpath
+    base_score: 0.66
+    cost: 1.1
+    evidence: 0.18
+    alias_proxy: 0.14
+    staleness: 0.25
+    active: true
+  - family_key: config-normalization
+    base_score: 0.6
+    cost: 1.05
+    evidence: 0.16
+    alias_proxy: 0.1
+    staleness: 0.15
+    active: true

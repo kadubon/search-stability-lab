@@ -1,0 +1,51 @@
+manifest_id: compression_probe_suite_v1
+description: Short frozen Layer B compression-probe suite for alias-prone summarization and recoverability loss.
+tasks:
+  - task_id: task-003
+    repository: bundled/summary-cache-microrepo
+    title: Reduce compression collisions in summary cache
+    issue_summary: Cache summary merges distinct failure modes and hides the adequate branch.
+    target_files:
+      - cache/summary.py
+      - tests/test_summary.py
+    test_command: pytest -q tests/test_summary.py
+    task_assets_path: tasks/assets/task-003
+    proxy_family_hint: summary-cache
+    resolving_family_keys:
+      - summary-cache
+    suite: compression
+    probe_purpose: Make alias-prone summarization compete against preserving two resolving routes until delayed verification.
+    target_hypotheses:
+      - H3
+      - H4
+    primary_proxy_metrics:
+      - compression_collision_proxy
+      - represented_candidate_family_count_proxy
+      - recoverable_candidate_count_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu
+  - task_id: task-007
+    repository: bundled/digest-routing-microrepo
+    title: Separate digest routes before summary collapse
+    issue_summary: A digest summary collapses timeout and parser failure routes, creating alias-heavy compression pressure.
+    target_files:
+      - digest/router.py
+      - tests/test_router.py
+    test_command: pytest -q tests/test_router.py
+    task_assets_path: tasks/assets/task-007
+    proxy_family_hint: digest-routing
+    resolving_family_keys:
+      - digest-routing
+    suite: compression
+    probe_purpose: Stress compression-heavy control with multiple resolving routes whose distinction matters for final success.
+    target_hypotheses:
+      - H3
+      - H4
+    primary_proxy_metrics:
+      - compression_collision_proxy
+      - represented_candidate_family_count_proxy
+      - recoverable_candidate_count_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu

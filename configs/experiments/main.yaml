@@ -1,0 +1,27 @@
+experiment_id: layer_a_main
+layer: layer_a
+description: Main simulator grid with theory-relevant contrasts.
+model_config: configs/models/mock.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c2.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c4.yaml
+  - configs/controllers/c5.yaml
+  - configs/controllers/c6.yaml
+output:
+  base_dir: artifacts/main
+  run_name_prefix: main
+base_seed: 21
+episodes_per_condition: 24
+step_limit: 10
+hard_cap_budget: true
+budgets: [low, medium, high]
+lags: [short, medium, long]
+overlaps: [low, medium, high]
+compression_strengths: [none, mild, strong]
+contamination_levels: [low, medium, high]
+reset_cost_levels: [low, medium, high]
+families_range: [4, 6]
+routes_per_family_range: [2, 3]
+

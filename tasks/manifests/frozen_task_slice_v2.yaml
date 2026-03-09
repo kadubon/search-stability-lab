@@ -1,0 +1,75 @@
+manifest_id: frozen_task_slice_v2
+description: Expanded frozen public-safe bundled micro-task manifest for non-mock Layer B evaluation.
+tasks:
+  - task_id: task-001
+    repository: bundled/parser-defaults-microrepo
+    title: Fix parser fallback
+    issue_summary: Parser crashes when config key is absent. A fallback branch should preserve a default parser family.
+    target_files:
+      - src/parser.py
+      - tests/test_parser.py
+    test_command: pytest -q tests/test_parser.py
+    task_assets_path: tasks/assets/task-001
+    proxy_family_hint: parser-defaults
+    resolving_family_keys:
+      - parser-defaults
+  - task_id: task-002
+    repository: bundled/auth-refresh-microrepo
+    title: Preserve auth token refresh path
+    issue_summary: Token refresh branch is retired too early when stale legacy state dominates.
+    target_files:
+      - auth/session.py
+      - tests/test_session.py
+    test_command: pytest -q tests/test_session.py
+    task_assets_path: tasks/assets/task-002
+    proxy_family_hint: auth-refresh
+    resolving_family_keys:
+      - auth-refresh
+  - task_id: task-003
+    repository: bundled/summary-cache-microrepo
+    title: Reduce compression collisions in summary cache
+    issue_summary: Cache summary merges distinct failure modes and hides the adequate branch.
+    target_files:
+      - cache/summary.py
+      - tests/test_summary.py
+    test_command: pytest -q tests/test_summary.py
+    task_assets_path: tasks/assets/task-003
+    proxy_family_hint: summary-cache
+    resolving_family_keys:
+      - summary-cache
+  - task_id: task-004
+    repository: bundled/checkpoint-resume-microrepo
+    title: Reset stale checkpoint lineage
+    issue_summary: A stale checkpoint chain dominates continuation even when a clean resume branch exists.
+    target_files:
+      - state/checkpoint.py
+      - tests/test_checkpoint.py
+    test_command: pytest -q tests/test_checkpoint.py
+    task_assets_path: tasks/assets/task-004
+    proxy_family_hint: checkpoint-resume
+    resolving_family_keys:
+      - checkpoint-resume
+  - task_id: task-005
+    repository: bundled/serializer-defaults-microrepo
+    title: Preserve serializer defaults
+    issue_summary: A cheaper same-family serializer default should survive instead of being displaced by a fastpath lure.
+    target_files:
+      - serialize/config.py
+      - tests/test_serialize.py
+    test_command: pytest -q tests/test_serialize.py
+    task_assets_path: tasks/assets/task-005
+    proxy_family_hint: serializer-defaults
+    resolving_family_keys:
+      - serializer-defaults
+  - task_id: task-006
+    repository: bundled/planner-reset-microrepo
+    title: Reset stale planner state
+    issue_summary: Planner continuation clings to a legacy route when a fresh replan branch should be recovered.
+    target_files:
+      - planner/state.py
+      - tests/test_planner_state.py
+    test_command: pytest -q tests/test_planner_state.py
+    task_assets_path: tasks/assets/task-006
+    proxy_family_hint: planner-reset
+    resolving_family_keys:
+      - planner-reset

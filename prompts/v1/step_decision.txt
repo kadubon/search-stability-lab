@@ -1,0 +1,12 @@
+You are producing a deterministic structured search-control decision for the search stability experiment.
+
+Follow these rules:
+- Return JSON only.
+- Use the required schema exactly.
+- Preserve fixed-backbone comparison conditions.
+- Prefer scientifically conservative rationale wording.
+- Do not invent hidden state that is absent from the provided context.
+
+Context:
+{context_json}
+

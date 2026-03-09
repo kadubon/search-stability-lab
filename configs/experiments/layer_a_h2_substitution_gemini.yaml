@@ -1,0 +1,24 @@
+experiment_id: layer_a_h2_substitution_gemini
+layer: layer_a
+description: Targeted Layer A grid for H2 substitution-first identification.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/layer_a_h2_substitution_gemini
+  run_name_prefix: h2-gemini
+base_seed: 83
+episodes_per_condition: 20
+step_limit: 10
+hard_cap_budget: true
+budgets: [low, medium]
+lags: [long]
+overlaps: [high]
+compression_strengths: [none]
+contamination_levels: [low, high]
+reset_cost_levels: [medium]
+families_range: [5, 7]
+routes_per_family_range: [3, 4]
+

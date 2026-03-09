@@ -1,0 +1,25 @@
+experiment_id: layer_a_pilot_local_cpu
+layer: layer_a
+description: Small pilot simulator grid using the local CPU backbone profile.
+model_config: configs/models/local_cpu.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c2.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/pilot_local_cpu
+  run_name_prefix: pilot-local
+base_seed: 51
+episodes_per_condition: 6
+step_limit: 8
+hard_cap_budget: true
+budgets: [low, medium]
+lags: [short, long]
+overlaps: [medium]
+compression_strengths: [none, strong]
+contamination_levels: [low, high]
+reset_cost_levels: [medium]
+families_range: [4, 5]
+routes_per_family_range: [2, 3]
+

@@ -1,0 +1,18 @@
+experiment_id: layer_b_local_cpu_slice
+layer: layer_b
+description: Safe Layer B task harness using the local Ollama-backed CPU model.
+model_config: configs/models/local_cpu.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_local_cpu
+  run_name_prefix: real-local
+base_seed: 41
+manifest_path: tasks/examples/mock_task_slice.yaml
+max_turns: 5
+token_budget: 4096
+mock_mode: true
+strict_assets: false
+fixed_backbone_block_label: local_cpu_block

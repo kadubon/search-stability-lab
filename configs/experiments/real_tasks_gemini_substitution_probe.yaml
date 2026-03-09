@@ -1,0 +1,18 @@
+experiment_id: layer_b_gemini_substitution_probe
+layer: layer_b
+description: Gemini-backed Layer B substitution probe block on bundled mechanistic tasks.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_gemini_substitution_probe
+  run_name_prefix: real-gemini-substitution-probe
+base_seed: 121
+manifest_path: tasks/manifests/substitution_probe_suite_v1.yaml
+max_turns: 5
+token_budget: 1024
+mock_mode: false
+strict_assets: true
+fixed_backbone_block_label: gemini_substitution_probe_block

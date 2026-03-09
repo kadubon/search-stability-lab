@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "search-stability-lab"
+version = "0.1.0"
+description = "Reproducible experiment harness for search stability under finite context."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "search-stability-lab maintainers" }]
+dependencies = [
+  "PyYAML>=6.0",
+  "pydantic>=2.7,<3",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "scipy>=1.13",
+  "statsmodels>=0.14",
+  "matplotlib>=3.8",
+  "jsonschema>=4.22",
+  "pytest>=8.2",
+  "google-genai>=1.0.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["analysis*", "controllers*", "core*", "models*", "simulator*", "tasks*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+

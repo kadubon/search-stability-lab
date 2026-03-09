@@ -1,0 +1,85 @@
+{
+  "configs": [
+    "configs/experiments/pilot.yaml",
+    "configs/experiments/layer_a_h1_budget_threshold_gemini.yaml",
+    "configs/experiments/layer_a_h2_substitution_gemini.yaml",
+    "configs/experiments/layer_a_h3_h4_compression_gemini.yaml",
+    "configs/experiments/layer_a_h5_reset_gemini.yaml",
+    "configs/experiments/real_tasks_gemini_substitution_probe.yaml",
+    "configs/experiments/real_tasks_gemini_compression_probe.yaml",
+    "configs/experiments/real_tasks_gemini_reset_probe.yaml",
+    "configs/experiments/real_tasks_local_cpu_substitution_probe.yaml",
+    "configs/experiments/real_tasks_local_cpu_compression_probe.yaml",
+    "configs/experiments/real_tasks_local_cpu_reset_probe.yaml",
+    "configs/experiments/real_tasks_gemini_nonmock_expanded.yaml",
+    "configs/experiments/real_tasks_local_cpu_nonmock_expanded.yaml",
+    "configs/models/gemini.yaml",
+    "configs/models/local_cpu_fast.yaml"
+  ],
+  "schemas": [
+    "schemas/step_decision.json",
+    "schemas/compression_result.json",
+    "schemas/continue_branch_reset.json",
+    "schemas/failure_attribution.json"
+  ],
+  "prompts": [
+    "prompts/v1/step_decision.txt",
+    "prompts/v1/compression_result.txt",
+    "prompts/v1/continue_branch_reset.txt",
+    "prompts/v1/failure_attribution.txt"
+  ],
+  "reports": [
+    "result_summary.md",
+    "docs/CURRENT_STATUS.md",
+    "docs/FINAL_RELEASE_REPORT_2026-03-09.md",
+    "docs/LAYER_A_SUITE_REPORT_2026-03-09.md",
+    "docs/LAYER_B_NONMOCK_REPORT_2026-03-09.md",
+    "docs/LAYER_B_PROBE_REPORT_2026-03-09.md",
+    "docs/LAYER_B_STATUS.md",
+    "docs/LAYER_B_PROXY_MODEL.md",
+    "docs/LAYER_B_PROBE_MATRIX.md",
+    "docs/SCIENTIFIC_SCOPE.md",
+    "docs/RESULTS_INTERPRETATION.md",
+    "docs/RELEASE_CHECKLIST.md"
+  ],
+  "key_result_csvs": [
+    "artifacts/layer_a_suite_2026-03-09/suite_final_outcomes.csv",
+    "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis/summary_tables.csv",
+    "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis/summary_tables.csv",
+    "artifacts/current_status/hypothesis_support.csv",
+    "artifacts/current_status/controller_comparison_summary.csv",
+    "artifacts/current_status/failure_channel_composition_summary.csv",
+    "artifacts/current_status/structured_output_fragility_summary.csv",
+    "artifacts/layer_b_probe_suite_2026-03-09/substitution/controller_comparison_summary.csv",
+    "artifacts/layer_b_probe_suite_2026-03-09/compression/proxy_metric_summary.csv",
+    "artifacts/layer_b_probe_suite_2026-03-09/reset/controller_comparison_summary.csv"
+  ],
+  "analysis_scripts": [
+    "scripts/analyze_results.py",
+    "scripts/generate_status_summary.py",
+    "scripts/build_layer_b_probe_suite.py",
+    "scripts/summarize_layer_b_probes.py",
+    "scripts/run_layer_b_probe_suite.py",
+    "scripts/release_clean.py",
+    "analysis/aggregate.py",
+    "analysis/figures.py",
+    "analysis/conservative_summary.py",
+    "analysis/layer_b_probes.py"
+  ],
+  "task_manifests": [
+    "tasks/manifests/frozen_task_slice_v1.yaml",
+    "tasks/manifests/frozen_task_slice_v2.yaml",
+    "tasks/manifests/frozen_task_slice_v3.yaml",
+    "tasks/manifests/substitution_probe_suite_v1.yaml",
+    "tasks/manifests/compression_probe_suite_v1.yaml",
+    "tasks/manifests/reset_probe_suite_v1.yaml"
+  ],
+  "smoke_test_scripts": [
+    "scripts/run_simulator.py",
+    "scripts/run_real_tasks.py",
+    "scripts/run_layer_b_probe_suite.py",
+    "scripts/validate_task_assets.py",
+    "scripts/check_public_safety.py",
+    "scripts/release_clean.py"
+  ]
+}

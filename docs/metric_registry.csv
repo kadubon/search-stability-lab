@@ -1,0 +1,37 @@
+metric_name,metric_class,layer,definition_short,used_in_primary_analysis
+final_success_rate,exact_theory_quantity,layer_a,Share of simulator episodes with at least one adequate family exactly recoverable at verification,yes
+adequate_family_survival_rate,exact_theory_quantity,layer_a,Fraction of true adequate families still exactly recoverable at verification,yes
+recoverable_family_count_at_verification,exact_theory_quantity,layer_a,Count of true adequate families exactly recoverable at verification,yes
+family_extinction_rate,exact_theory_quantity,layer_a,Share of true adequate families no longer represented by the verification point,yes
+active_set_size_over_time,diagnostic_annotation,layer_a,Active route count over simulator time, no
+represented_family_count_over_time,diagnostic_annotation,layer_a,Represented family count over simulator time, no
+compression_alias_collision_count,exact_theory_quantity,layer_a,Count of exact alias events caused by simulator compression, no
+post_compression_action_disagreement_rate,diagnostic_annotation,layer_a,Approximate disagreement between compressed and uncompressed control state, no
+avoidable_retirement_count,exact_theory_quantity,layer_a,Count of simulator retirements marked avoidable by exact rule, no
+reset_frequency,diagnostic_annotation,layer_a,Number of reset actions per simulator episode, no
+post_reset_improvement_rate,diagnostic_annotation,layer_a,Share of reset episodes with later improvement in recoverable adequate families, no
+branch_usefulness_rate,diagnostic_annotation,layer_a,Share of branch actions followed by improved represented-family coverage, no
+cost_normalized_success,diagnostic_annotation,layer_a,Success scaled by average budget consumed, no
+resolved,task_outcome,layer_b,Whether the task harness produced a resolved task outcome,yes
+time_to_first_plausible_patch,task_outcome,layer_b,Turn index of first plausible patch-like action in the harness, no
+time_to_first_test_passing_patch,task_outcome,layer_b,Turn index of first resolved task outcome in the harness, no
+candidate_branch_count,task_outcome,layer_b,Maximum active branch count observed for a task, no
+reset_count,task_outcome,layer_b,Number of reset actions in a task run, no
+compression_count,task_outcome,layer_b,Number of compression actions in a task run, no
+retired_branch_count,task_outcome,layer_b,Number of retired branches in a task run, no
+patch_revision_count,task_outcome,layer_b,Number of tool or patch revision attempts in a task run, no
+represented_candidate_family_count_proxy,proxy,layer_b,Proxy count of represented candidate families under deterministic family rule,yes
+recoverable_candidate_count_proxy,proxy,layer_b,Proxy count of branches still recoverable for later reopening,yes
+compression_collision_proxy,proxy,layer_b,Proxy count of summary collisions after compression in the harness,yes
+avoidable_retirement_proxy,proxy,layer_b,Proxy count of retirements that appear to remove the only resolving family candidate,yes
+reset_helpfulness_proxy,proxy,layer_b,Proxy signal that a reset was followed by improved task progress,yes
+stale_continuation_proxy,proxy,layer_b,Proxy level of stale active continuation pressure on non-resolving families,yes
+post_reset_resolution_improvement_proxy,proxy,layer_b,Proxy increase in resolving-family evidence after a reset event,yes
+failure_channel_true,exact_theory_quantity,layer_a,Deterministic dominant simulator failure channel label,yes
+failure_channel_proxy,proxy,layer_b,Model-produced or fallback dominant failure label for a task run,yes
+structured_output_invalidity,confound_indicator,layer_b,Whether the final task record contains a malformed-output or backend-output error,yes
+structured_output_invalidity_rate,confound_indicator,layer_b,Share of task endings with malformed or failed structured output,yes
+structured_output_invalidity_type,confound_indicator,layer_b,Categorical invalid-structure type derived from the final recorded model error,no
+structured_output_repaired_call_count,confound_indicator,layer_b,Count of local structured outputs salvaged by bounded repair before validation,no
+structured_output_unrecoverable_call_count,confound_indicator,layer_b,Count of model calls that remained invalid after bounded repair,no
+task_failure_category,diagnostic_annotation,layer_b,High-level Layer B ending category separating task failure controller failure and structured-output invalidity,no

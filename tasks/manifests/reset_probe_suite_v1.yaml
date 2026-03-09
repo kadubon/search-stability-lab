@@ -1,0 +1,95 @@
+manifest_id: reset_probe_suite_v1
+description: Short frozen Layer B reset-probe suite for stale continuation versus targeted reset recovery.
+tasks:
+  - task_id: task-002
+    repository: bundled/auth-refresh-microrepo
+    title: Preserve auth token refresh path
+    issue_summary: Token refresh branch is retired too early when stale legacy state dominates.
+    target_files:
+      - auth/session.py
+      - tests/test_session.py
+    test_command: pytest -q tests/test_session.py
+    task_assets_path: tasks/assets/task-002
+    proxy_family_hint: auth-refresh
+    resolving_family_keys:
+      - auth-refresh
+    suite: reset
+    probe_purpose: Probe whether reset recovers a dominated resolving branch under stale contamination.
+    target_hypotheses:
+      - H5
+    primary_proxy_metrics:
+      - reset_helpfulness_proxy
+      - stale_continuation_proxy
+      - post_reset_resolution_improvement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu
+  - task_id: task-004
+    repository: bundled/checkpoint-resume-microrepo
+    title: Reset stale checkpoint lineage
+    issue_summary: A stale checkpoint chain dominates continuation even when a clean resume branch exists.
+    target_files:
+      - state/checkpoint.py
+      - tests/test_checkpoint.py
+    test_command: pytest -q tests/test_checkpoint.py
+    task_assets_path: tasks/assets/task-004
+    proxy_family_hint: checkpoint-resume
+    resolving_family_keys:
+      - checkpoint-resume
+    suite: reset
+    probe_purpose: Favor reset when stale lineage keeps higher-scoring but contaminated branches active.
+    target_hypotheses:
+      - H5
+    primary_proxy_metrics:
+      - reset_helpfulness_proxy
+      - stale_continuation_proxy
+      - post_reset_resolution_improvement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu
+  - task_id: task-006
+    repository: bundled/planner-reset-microrepo
+    title: Reset stale planner state
+    issue_summary: Planner continuation clings to a legacy route when a fresh replan branch should be recovered.
+    target_files:
+      - planner/state.py
+      - tests/test_planner_state.py
+    test_command: pytest -q tests/test_planner_state.py
+    task_assets_path: tasks/assets/task-006
+    proxy_family_hint: planner-reset
+    resolving_family_keys:
+      - planner-reset
+    suite: reset
+    probe_purpose: Distinguish stale continuation from helpful reset when the replan family is archived.
+    target_hypotheses:
+      - H5
+    primary_proxy_metrics:
+      - reset_helpfulness_proxy
+      - stale_continuation_proxy
+      - post_reset_resolution_improvement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu
+  - task_id: task-008
+    repository: bundled/worker-reset-microrepo
+    title: Reset worker lease lineage
+    issue_summary: A worker lease keeps replaying stale state when a fresh reset branch should take over.
+    target_files:
+      - workers/lease.py
+      - tests/test_lease.py
+    test_command: pytest -q tests/test_lease.py
+    task_assets_path: tasks/assets/task-008
+    proxy_family_hint: worker-reset
+    resolving_family_keys:
+      - worker-reset
+    suite: reset
+    probe_purpose: Create a transparent case where reset can improve post-reset resolution proxies.
+    target_hypotheses:
+      - H5
+    primary_proxy_metrics:
+      - reset_helpfulness_proxy
+      - stale_continuation_proxy
+      - post_reset_resolution_improvement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu

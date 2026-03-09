@@ -1,0 +1,18 @@
+experiment_id: layer_b_gemini_frozen_nonmock_expanded
+layer: layer_b
+description: Expanded frozen non-mock Layer B task harness using Gemini 2.5 Flash-Lite on bundled micro-task assets.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_gemini_nonmock_expanded
+  run_name_prefix: real-gemini-nonmock-expanded
+base_seed: 91
+manifest_path: tasks/manifests/frozen_task_slice_v2.yaml
+max_turns: 5
+token_budget: 1024
+mock_mode: false
+strict_assets: true
+fixed_backbone_block_label: gemini_flash_lite_nonmock_expanded_block

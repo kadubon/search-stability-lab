@@ -1,0 +1,64 @@
+bundle_id: task-006-planner-reset-v1
+task_id: task-006
+suite: reset
+intended_mechanism: reset versus stale planner continuation
+target_hypotheses:
+  - H5
+primary_proxy_metrics:
+  - reset_helpfulness_proxy
+  - stale_continuation_proxy
+  - post_reset_resolution_improvement_proxy
+language: python
+entrypoint: planner/state.py
+test_command: pytest -q tests/test_planner_state.py
+allowed_paths:
+  - planner/state.py
+  - tests/test_planner_state.py
+evidence_threshold: 0.5
+initial_contamination: 1.12
+reset_recovery_bonus: 0.3
+stale_continuation_penalty: 0.42
+compression_pressure: 0.02
+proxy_validity_note:
+  captures:
+    - whether reset helps recover the replan family after stale planner continuation
+    - whether stale continuation remains visible when reset is not taken
+  cannot_capture:
+    - real planner quality under long horizons
+    - exact causal attribution of reset in world tasks
+  likely_false_positives:
+    - proxy gains due to authored reset bonus rather than robust policy quality
+  likely_false_negatives:
+    - bounded turn budget understating reset benefits
+branch_profiles:
+  - family_key: planner-reset
+    base_score: 0.55
+    cost: 1.18
+    evidence: 0.25
+    alias_proxy: 0.05
+    staleness: 0.58
+    inertia: 0.2
+    active: true
+  - family_key: legacy-plan
+    base_score: 0.71
+    cost: 1.12
+    evidence: 0.17
+    alias_proxy: 0.16
+    staleness: 0.86
+    inertia: 0.65
+    active: true
+  - family_key: replay-plan
+    base_score: 0.64
+    cost: 1.0
+    evidence: 0.15
+    alias_proxy: 0.13
+    staleness: 0.74
+    inertia: 0.45
+    active: true
+  - family_key: scratch-branch
+    base_score: 0.49
+    cost: 0.88
+    evidence: 0.11
+    alias_proxy: 0.09
+    staleness: 0.12
+    active: false

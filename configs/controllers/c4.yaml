@@ -1,0 +1,6 @@
+controller_id: C4
+family_reserve_min: 2
+compression_caution_threshold: 0.6
+reset_threshold: 1.0
+random_budget_ratio: 0.8
+branch_probability: 0.15

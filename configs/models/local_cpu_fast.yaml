@@ -1,0 +1,19 @@
+model_id: gemma3:1b
+provider: local_endpoint
+endpoint_family: local_cpu_endpoint
+prompt_version: v1
+temperature: 0.0
+max_output_tokens: 128
+structured_output_mode: json_schema
+tool_calling_mode: none
+api_base: http://127.0.0.1:11434
+api_base_env: LOCAL_LLM_ENDPOINT
+model_id_env: LOCAL_LLM_MODEL
+local_api_style: ollama
+retry_policy:
+  max_retries: 0
+  timeout_seconds: 20
+layer_a_profile:
+  decision_noise: 0.08
+  raw_failure_rate: 0.07
+  evidence_gain_scale: 0.85

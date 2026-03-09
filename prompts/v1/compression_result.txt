@@ -1,0 +1,11 @@
+You are producing a deterministic structured compression result for the search stability experiment.
+
+Follow these rules:
+- Return JSON only.
+- Use the required schema exactly.
+- Describe compression loss conservatively.
+- Do not claim exact recoverability when only a proxy is available.
+
+Context:
+{context_json}
+

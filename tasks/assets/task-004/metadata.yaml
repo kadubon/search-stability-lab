@@ -1,0 +1,64 @@
+bundle_id: task-004-checkpoint-resume-v1
+task_id: task-004
+suite: reset
+intended_mechanism: reset versus stale checkpoint continuation
+target_hypotheses:
+  - H5
+primary_proxy_metrics:
+  - reset_helpfulness_proxy
+  - stale_continuation_proxy
+  - post_reset_resolution_improvement_proxy
+language: python
+entrypoint: state/checkpoint.py
+test_command: pytest -q tests/test_checkpoint.py
+allowed_paths:
+  - state/checkpoint.py
+  - tests/test_checkpoint.py
+evidence_threshold: 0.5
+initial_contamination: 1.05
+reset_recovery_bonus: 0.28
+stale_continuation_penalty: 0.4
+compression_pressure: 0.03
+proxy_validity_note:
+  captures:
+    - whether reset reduces stale checkpoint dominance
+    - whether post-reset evidence for the clean resume family increases
+  cannot_capture:
+    - exact causal benefit of reset in real long-running agents
+    - operational costs of discarding real working memory
+  likely_false_positives:
+    - reset bonus overpowering subtler controller effects
+  likely_false_negatives:
+    - resolving family still needing more turns than the bounded probe allows
+branch_profiles:
+  - family_key: checkpoint-resume
+    base_score: 0.54
+    cost: 1.2
+    evidence: 0.24
+    alias_proxy: 0.06
+    staleness: 0.55
+    inertia: 0.25
+    active: true
+  - family_key: legacy-checkpoint
+    base_score: 0.69
+    cost: 1.15
+    evidence: 0.18
+    alias_proxy: 0.14
+    staleness: 0.82
+    inertia: 0.6
+    active: true
+  - family_key: chain-replay
+    base_score: 0.63
+    cost: 1.05
+    evidence: 0.16
+    alias_proxy: 0.12
+    staleness: 0.7
+    inertia: 0.4
+    active: true
+  - family_key: checkpoint-cleanup
+    base_score: 0.46
+    cost: 0.9
+    evidence: 0.12
+    alias_proxy: 0.1
+    staleness: 0.15
+    active: false

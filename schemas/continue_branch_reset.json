@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ContinueBranchResetDecision",
+  "type": "object",
+  "required": [
+    "decision",
+    "estimated_continue_value",
+    "estimated_branch_value",
+    "estimated_reset_value",
+    "estimated_reset_cost",
+    "justification_short"
+  ],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["continue", "branch", "reset"]
+    },
+    "estimated_continue_value": { "type": "number" },
+    "estimated_branch_value": { "type": "number" },
+    "estimated_reset_value": { "type": "number" },
+    "estimated_reset_cost": { "type": "number", "minimum": 0.0 },
+    "justification_short": { "type": "string" }
+  },
+  "additionalProperties": false
+}
+

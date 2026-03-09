@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StepDecision",
+  "type": "object",
+  "required": [
+    "step_id",
+    "decision_type",
+    "target_ids",
+    "family_ids",
+    "confidence",
+    "rationale_short",
+    "predicted_risk",
+    "estimated_budget_after"
+  ],
+  "properties": {
+    "step_id": { "type": "string" },
+    "decision_type": {
+      "type": "string",
+      "enum": [
+        "keep",
+        "retire",
+        "substitute-within-family",
+        "compress",
+        "branch",
+        "reset",
+        "tool"
+      ]
+    },
+    "target_ids": { "type": "array", "items": { "type": "string" } },
+    "family_ids": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "rationale_short": { "type": "string" },
+    "predicted_risk": {
+      "type": "object",
+      "required": ["adequacy_loss", "alias_risk", "staleness_risk"],
+      "properties": {
+        "adequacy_loss": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "alias_risk": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "staleness_risk": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      }
+    },
+    "estimated_budget_after": { "type": "number", "minimum": 0.0 }
+  },
+  "additionalProperties": false
+}
+

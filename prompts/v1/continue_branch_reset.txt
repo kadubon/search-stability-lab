@@ -1,0 +1,10 @@
+You are producing a deterministic continue-branch-reset decision for the search stability experiment.
+
+Follow these rules:
+- Return JSON only.
+- Use the required schema exactly.
+- Reset should only be selected when estimated value exceeds cost-adjusted continuation and branching.
+
+Context:
+{context_json}
+

@@ -1,0 +1,25 @@
+experiment_id: layer_a_pilot
+layer: layer_a
+description: Small pilot simulator grid for smoke and pilot analysis.
+model_config: configs/models/mock.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c2.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/pilot
+  run_name_prefix: pilot
+base_seed: 11
+episodes_per_condition: 6
+step_limit: 8
+hard_cap_budget: true
+budgets: [low, medium]
+lags: [short, long]
+overlaps: [medium]
+compression_strengths: [none, strong]
+contamination_levels: [low, high]
+reset_cost_levels: [medium]
+families_range: [4, 5]
+routes_per_family_range: [2, 3]
+

@@ -1,0 +1,68 @@
+bundle_id: task-003-summary-cache-v1
+task_id: task-003
+suite: compression
+intended_mechanism: alias-prone summarization under compression pressure
+target_hypotheses:
+  - H3
+  - H4
+primary_proxy_metrics:
+  - compression_collision_proxy
+  - represented_candidate_family_count_proxy
+  - recoverable_candidate_count_proxy
+language: python
+entrypoint: cache/summary.py
+test_command: pytest -q tests/test_summary.py
+allowed_paths:
+  - cache/summary.py
+  - tests/test_summary.py
+evidence_threshold: 0.42
+initial_contamination: 0.42
+reset_recovery_bonus: 0.22
+stale_continuation_penalty: 0.12
+compression_pressure: 0.3
+resolution_turn_gate: 3
+required_active_resolving_routes_for_success: 2
+compression_evidence_penalty: 0.16
+compression_recoverability_alias_threshold: 0.78
+proxy_validity_note:
+  captures:
+    - collision risk when summaries collapse distinct failure modes
+    - family-count loss under aggressive compression
+    - whether preserving two resolving routes matters for final task success
+  cannot_capture:
+    - exact information loss in real agent traces
+    - benchmark-scale summarization quality
+  likely_false_positives:
+    - proxy collisions caused by authored branch setup that would be rarer in larger tasks
+  likely_false_negatives:
+    - no collision despite lossy summary semantics that the proxy does not detect
+branch_profiles:
+  - family_key: summary-cache
+    base_score: 0.55
+    cost: 1.4
+    evidence: 0.24
+    alias_proxy: 0.42
+    staleness: 0.15
+    active: true
+  - family_key: summary-cache
+    base_score: 0.52
+    cost: 0.9
+    evidence: 0.31
+    alias_proxy: 0.2
+    staleness: 0.1
+    active: false
+  - family_key: failure-summary
+    base_score: 0.69
+    cost: 1.15
+    evidence: 0.18
+    alias_proxy: 0.58
+    staleness: 0.18
+    compressed: true
+    active: true
+  - family_key: cache-keys
+    base_score: 0.6
+    cost: 1.1
+    evidence: 0.16
+    alias_proxy: 0.32
+    staleness: 0.12
+    active: true

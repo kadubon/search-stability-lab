@@ -1,0 +1,18 @@
+experiment_id: layer_b_gemini_compression_probe
+layer: layer_b
+description: Gemini-backed Layer B compression probe block on bundled mechanistic tasks.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c1.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_gemini_compression_probe
+  run_name_prefix: real-gemini-compression-probe
+base_seed: 131
+manifest_path: tasks/manifests/compression_probe_suite_v1.yaml
+max_turns: 5
+token_budget: 896
+mock_mode: false
+strict_assets: true
+fixed_backbone_block_label: gemini_compression_probe_block

@@ -1,0 +1,18 @@
+experiment_id: layer_b_gemini_reset_probe
+layer: layer_b
+description: Gemini-backed Layer B reset probe block on bundled mechanistic tasks.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c4.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_gemini_reset_probe
+  run_name_prefix: real-gemini-reset-probe
+base_seed: 141
+manifest_path: tasks/manifests/reset_probe_suite_v1.yaml
+max_turns: 5
+token_budget: 896
+mock_mode: false
+strict_assets: true
+fixed_backbone_block_label: gemini_reset_probe_block

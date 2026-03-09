@@ -1,0 +1,64 @@
+bundle_id: task-008-worker-reset-v1
+task_id: task-008
+suite: reset
+intended_mechanism: targeted reset after stale worker-lease continuation
+target_hypotheses:
+  - H5
+primary_proxy_metrics:
+  - reset_helpfulness_proxy
+  - stale_continuation_proxy
+  - post_reset_resolution_improvement_proxy
+language: python
+entrypoint: workers/lease.py
+test_command: pytest -q tests/test_lease.py
+allowed_paths:
+  - workers/lease.py
+  - tests/test_lease.py
+evidence_threshold: 0.52
+initial_contamination: 1.08
+reset_recovery_bonus: 0.32
+stale_continuation_penalty: 0.45
+compression_pressure: 0.02
+proxy_validity_note:
+  captures:
+    - whether reset can revive the fresh worker-reset family
+    - whether stale continuation keeps replaying the legacy lease route
+  cannot_capture:
+    - full operational impact of resetting a real agent
+    - world-exact stale-state attribution
+  likely_false_positives:
+    - authored reset bonus making recovery cleaner than in the wild
+  likely_false_negatives:
+    - bounded turn budget understating delayed reset gains
+branch_profiles:
+  - family_key: worker-reset
+    base_score: 0.54
+    cost: 1.19
+    evidence: 0.24
+    alias_proxy: 0.05
+    staleness: 0.6
+    inertia: 0.22
+    active: true
+  - family_key: worker-legacy
+    base_score: 0.72
+    cost: 1.1
+    evidence: 0.18
+    alias_proxy: 0.14
+    staleness: 0.9
+    inertia: 0.7
+    active: true
+  - family_key: lease-replay
+    base_score: 0.64
+    cost: 1.02
+    evidence: 0.15
+    alias_proxy: 0.12
+    staleness: 0.75
+    inertia: 0.48
+    active: true
+  - family_key: clean-bootstrap
+    base_score: 0.47
+    cost: 0.9
+    evidence: 0.13
+    alias_proxy: 0.08
+    staleness: 0.1
+    active: false

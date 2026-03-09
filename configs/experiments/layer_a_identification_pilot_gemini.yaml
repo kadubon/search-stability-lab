@@ -1,0 +1,26 @@
+experiment_id: layer_a_identification_pilot_gemini
+layer: layer_a
+description: Identification-oriented pilot grid designed to make H1-H5 more discriminative under a fixed Gemini backbone profile.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c2.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c4.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/layer_a_identification_pilot_gemini
+  run_name_prefix: identify-gemini
+base_seed: 81
+episodes_per_condition: 12
+step_limit: 10
+hard_cap_budget: true
+budgets: [low, medium, high]
+lags: [short, long]
+overlaps: [medium, high]
+compression_strengths: [none, strong]
+contamination_levels: [low, high]
+reset_cost_levels: [low, high]
+families_range: [5, 7]
+routes_per_family_range: [2, 4]
+

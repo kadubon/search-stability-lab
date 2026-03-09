@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CompressionResult",
+  "type": "object",
+  "required": [
+    "compression_id",
+    "source_route_ids",
+    "source_family_ids",
+    "summary_text",
+    "summary_state",
+    "estimated_information_loss"
+  ],
+  "properties": {
+    "compression_id": { "type": "string" },
+    "source_route_ids": { "type": "array", "items": { "type": "string" } },
+    "source_family_ids": { "type": "array", "items": { "type": "string" } },
+    "summary_text": { "type": "string" },
+    "summary_state": {
+      "type": "object",
+      "required": [
+        "open_questions",
+        "assumptions",
+        "critical_discriminators"
+      ],
+      "properties": {
+        "open_questions": { "type": "array", "items": { "type": "string" } },
+        "assumptions": { "type": "array", "items": { "type": "string" } },
+        "critical_discriminators": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "estimated_information_loss": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+  },
+  "additionalProperties": false
+}
+

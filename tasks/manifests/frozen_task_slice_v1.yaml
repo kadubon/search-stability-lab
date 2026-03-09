@@ -1,0 +1,39 @@
+manifest_id: frozen_task_slice_v1
+description: Frozen public-safe bundled micro-task manifest for non-mock Layer B evaluation.
+tasks:
+  - task_id: task-001
+    repository: bundled/parser-defaults-microrepo
+    title: Fix parser fallback
+    issue_summary: Parser crashes when config key is absent. A fallback branch should preserve a default parser family.
+    target_files:
+      - src/parser.py
+      - tests/test_parser.py
+    test_command: pytest -q tests/test_parser.py
+    task_assets_path: tasks/assets/task-001
+    proxy_family_hint: parser-defaults
+    resolving_family_keys:
+      - parser-defaults
+  - task_id: task-002
+    repository: bundled/auth-refresh-microrepo
+    title: Preserve auth token refresh path
+    issue_summary: Token refresh branch is retired too early when stale legacy state dominates.
+    target_files:
+      - auth/session.py
+      - tests/test_session.py
+    test_command: pytest -q tests/test_session.py
+    task_assets_path: tasks/assets/task-002
+    proxy_family_hint: auth-refresh
+    resolving_family_keys:
+      - auth-refresh
+  - task_id: task-003
+    repository: bundled/summary-cache-microrepo
+    title: Reduce compression collisions in summary cache
+    issue_summary: Cache summary merges distinct failure modes and hides the adequate branch.
+    target_files:
+      - cache/summary.py
+      - tests/test_summary.py
+    test_command: pytest -q tests/test_summary.py
+    task_assets_path: tasks/assets/task-003
+    proxy_family_hint: summary-cache
+    resolving_family_keys:
+      - summary-cache

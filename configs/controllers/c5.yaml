@@ -1,0 +1,6 @@
+controller_id: C5
+family_reserve_min: 2
+compression_caution_threshold: 0.35
+reset_threshold: 1.05
+random_budget_ratio: 0.8
+branch_probability: 0.25

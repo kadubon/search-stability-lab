@@ -1,0 +1,11 @@
+PyYAML>=6.0
+pydantic>=2.7,<3
+numpy>=1.26
+pandas>=2.2
+scipy>=1.13
+statsmodels>=0.14
+matplotlib>=3.8
+jsonschema>=4.22
+pytest>=8.2
+google-genai>=1.0.0
+

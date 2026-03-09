@@ -1,0 +1,10 @@
+You are producing a structured failure attribution for the search stability experiment.
+
+Follow these rules:
+- Return JSON only.
+- Use the required schema exactly.
+- Prefer the dominant channel supported by trace evidence.
+- Avoid universal language or claims of proof.
+
+Context:
+{context_json}

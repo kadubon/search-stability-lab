@@ -1,0 +1,18 @@
+experiment_id: layer_b_local_cpu_compression_probe
+layer: layer_b
+description: Local CPU-backed Layer B compression probe block on bundled mechanistic tasks.
+model_config: configs/models/local_cpu_fast.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c1.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_local_cpu_compression_probe
+  run_name_prefix: real-local-compression-probe
+base_seed: 231
+manifest_path: tasks/manifests/compression_probe_suite_v1.yaml
+max_turns: 5
+token_budget: 896
+mock_mode: false
+strict_assets: true
+fixed_backbone_block_label: local_cpu_compression_probe_block

@@ -1,0 +1,24 @@
+experiment_id: layer_a_h1_budget_threshold_gemini
+layer: layer_a
+description: Targeted Layer A grid for H1 budget-threshold identification under delayed verification.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c2.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/layer_a_h1_budget_threshold_gemini
+  run_name_prefix: h1-gemini
+base_seed: 82
+episodes_per_condition: 20
+step_limit: 10
+hard_cap_budget: true
+budgets: [low, medium, high]
+lags: [long]
+overlaps: [high]
+compression_strengths: [none]
+contamination_levels: [low]
+reset_cost_levels: [medium]
+families_range: [5, 7]
+routes_per_family_range: [2, 4]
+

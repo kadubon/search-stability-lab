@@ -1,0 +1,58 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+.env copy*
+
+# Python caches and builds
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editor and OS files
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+Desktop.ini
+
+# Experiment outputs
+artifacts/
+outputs/
+results/
+figures/
+tables/
+*.jsonl
+*.log
+*.sqlite
+logs/
+local_logs/
+tmp/
+temp/
+*.tmp
+*.bak
+.cache/
+
+# Task assets and containers
+tasks/assets/local/
+tasks/local/
+.docker/
+.ollama/
+ollama_models/
+
+# Notebook checkpoints
+.ipynb_checkpoints/

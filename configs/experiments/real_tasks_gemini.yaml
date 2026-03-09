@@ -1,0 +1,18 @@
+experiment_id: layer_b_gemini_slice
+layer: layer_b
+description: Safe Layer B task harness using Gemini 2.5 Flash-Lite.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c3.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/real_tasks_gemini
+  run_name_prefix: real-gemini
+base_seed: 71
+manifest_path: tasks/examples/mock_task_slice.yaml
+max_turns: 5
+token_budget: 4096
+mock_mode: true
+strict_assets: false
+fixed_backbone_block_label: gemini_flash_lite_block

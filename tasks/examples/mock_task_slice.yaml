@@ -1,0 +1,34 @@
+manifest_id: mock_swe_bench_style_slice_v1
+description: Mock task slice for offline smoke tests and pipeline validation.
+tasks:
+  - task_id: task-001
+    repository: example/repo-alpha
+    title: Fix parser fallback
+    issue_summary: Parser crashes when config key is absent. A fallback branch should preserve a default parser family.
+    target_files:
+      - src/parser.py
+      - tests/test_parser.py
+    proxy_family_hint: parser-defaults
+    resolving_family_keys:
+      - parser-defaults
+  - task_id: task-002
+    repository: example/repo-beta
+    title: Preserve auth token refresh path
+    issue_summary: Token refresh branch is retired too early when stale legacy state dominates.
+    target_files:
+      - auth/session.py
+      - tests/test_session.py
+    proxy_family_hint: auth-refresh
+    resolving_family_keys:
+      - auth-refresh
+  - task_id: task-003
+    repository: example/repo-gamma
+    title: Reduce compression collisions in summary cache
+    issue_summary: Cache summary merges distinct failure modes and hides the adequate branch.
+    target_files:
+      - cache/summary.py
+      - tests/test_summary.py
+    proxy_family_hint: summary-cache
+    resolving_family_keys:
+      - summary-cache
+

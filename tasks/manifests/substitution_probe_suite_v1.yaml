@@ -1,0 +1,49 @@
+manifest_id: substitution_probe_suite_v1
+description: Short frozen Layer B substitution-probe suite for same-family preservation and avoidable-retirement contrasts.
+tasks:
+  - task_id: task-001
+    repository: bundled/parser-defaults-microrepo
+    title: Fix parser fallback
+    issue_summary: Parser crashes when config key is absent. A fallback branch should preserve a default parser family.
+    target_files:
+      - src/parser.py
+      - tests/test_parser.py
+    test_command: pytest -q tests/test_parser.py
+    task_assets_path: tasks/assets/task-001
+    proxy_family_hint: parser-defaults
+    resolving_family_keys:
+      - parser-defaults
+    suite: substitution
+    probe_purpose: Preserve a same-family resolving branch instead of retiring it in favor of a lure.
+    target_hypotheses:
+      - H2
+    primary_proxy_metrics:
+      - represented_candidate_family_count_proxy
+      - recoverable_candidate_count_proxy
+      - avoidable_retirement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu
+  - task_id: task-005
+    repository: bundled/serializer-defaults-microrepo
+    title: Preserve serializer defaults
+    issue_summary: A cheaper same-family serializer default should survive instead of being displaced by a fastpath lure.
+    target_files:
+      - serialize/config.py
+      - tests/test_serialize.py
+    test_command: pytest -q tests/test_serialize.py
+    task_assets_path: tasks/assets/task-005
+    proxy_family_hint: serializer-defaults
+    resolving_family_keys:
+      - serializer-defaults
+    suite: substitution
+    probe_purpose: Reward same-family substitution and penalize avoidable retirement of the resolving family.
+    target_hypotheses:
+      - H2
+    primary_proxy_metrics:
+      - represented_candidate_family_count_proxy
+      - recoverable_candidate_count_proxy
+      - avoidable_retirement_proxy
+    suitable_backbones:
+      - gemini
+      - local_cpu

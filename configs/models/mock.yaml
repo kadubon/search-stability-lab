@@ -1,0 +1,16 @@
+model_id: mock-deterministic-v1
+provider: mock
+endpoint_family: offline
+prompt_version: v1
+temperature: 0.0
+max_output_tokens: 256
+structured_output_mode: json_schema
+tool_calling_mode: none
+retry_policy:
+  max_retries: 1
+  timeout_seconds: 5
+layer_a_profile:
+  decision_noise: 0.02
+  raw_failure_rate: 0.01
+  evidence_gain_scale: 1.0
+

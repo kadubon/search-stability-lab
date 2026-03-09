@@ -1,0 +1,61 @@
+bundle_id: task-005-serializer-defaults-v1
+task_id: task-005
+suite: substitution
+intended_mechanism: same-family substitution with cheaper adequate branch
+target_hypotheses:
+  - H2
+primary_proxy_metrics:
+  - represented_candidate_family_count_proxy
+  - recoverable_candidate_count_proxy
+  - avoidable_retirement_proxy
+language: python
+entrypoint: serialize/config.py
+test_command: pytest -q tests/test_serialize.py
+allowed_paths:
+  - serialize/config.py
+  - tests/test_serialize.py
+evidence_threshold: 0.64
+initial_contamination: 0.16
+reset_recovery_bonus: 0.06
+stale_continuation_penalty: 0.08
+compression_pressure: 0.04
+proxy_validity_note:
+  captures:
+    - whether same-family substitution preserves the serializer-defaults family
+    - whether a cheap adequate branch remains recoverable
+  cannot_capture:
+    - broader library-upgrade behavior
+    - exact latent adequacy outside this authored task
+  likely_false_positives:
+    - authored cost differences making substitution easier than in the wild
+  likely_false_negatives:
+    - small-model formatting failure masking a good substitution move
+branch_profiles:
+  - family_key: serializer-defaults
+    base_score: 0.57
+    cost: 1.4
+    evidence: 0.21
+    alias_proxy: 0.08
+    staleness: 0.18
+    active: true
+  - family_key: serializer-defaults
+    base_score: 0.55
+    cost: 0.82
+    evidence: 0.34
+    alias_proxy: 0.03
+    staleness: 0.08
+    active: false
+  - family_key: serializer-fastpath
+    base_score: 0.67
+    cost: 1.08
+    evidence: 0.17
+    alias_proxy: 0.14
+    staleness: 0.22
+    active: true
+  - family_key: output-normalization
+    base_score: 0.6
+    cost: 1.02
+    evidence: 0.15
+    alias_proxy: 0.1
+    staleness: 0.16
+    active: true

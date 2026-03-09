@@ -1,0 +1,23 @@
+experiment_id: layer_a_h5_reset_gemini
+layer: layer_a
+description: Targeted Layer A grid for H5 reset-rationality under stale-legacy contamination.
+model_config: configs/models/gemini.yaml
+controller_configs:
+  - configs/controllers/c0.yaml
+  - configs/controllers/c4.yaml
+  - configs/controllers/c5.yaml
+output:
+  base_dir: artifacts/layer_a_h5_reset_gemini
+  run_name_prefix: h5-gemini
+base_seed: 85
+episodes_per_condition: 20
+step_limit: 10
+hard_cap_budget: true
+budgets: [medium]
+lags: [long]
+overlaps: [high]
+compression_strengths: [none, strong]
+contamination_levels: [medium, high]
+reset_cost_levels: [low, high]
+families_range: [5, 7]
+routes_per_family_range: [2, 4]

@@ -1,0 +1,75 @@
+bundle_id: task-007-digest-routing-v1
+task_id: task-007
+suite: compression
+intended_mechanism: digest-route alias under summary collapse
+target_hypotheses:
+  - H3
+  - H4
+primary_proxy_metrics:
+  - compression_collision_proxy
+  - represented_candidate_family_count_proxy
+  - recoverable_candidate_count_proxy
+language: python
+entrypoint: digest/router.py
+test_command: pytest -q tests/test_router.py
+allowed_paths:
+  - digest/router.py
+  - tests/test_router.py
+evidence_threshold: 0.42
+initial_contamination: 0.48
+reset_recovery_bonus: 0.22
+stale_continuation_penalty: 0.1
+compression_pressure: 0.36
+resolution_turn_gate: 3
+required_active_resolving_routes_for_success: 2
+compression_evidence_penalty: 0.16
+compression_recoverability_alias_threshold: 0.78
+proxy_validity_note:
+  captures:
+    - collision risk when summary labels collapse distinct digest routes
+    - recoverability loss when the resolving digest branch is archived
+    - delayed discrimination between preserved digest-routing branches and summary-collapsed lures
+  cannot_capture:
+    - benchmark-scale summarization fidelity
+    - exact latent information loss in real tool traces
+  likely_false_positives:
+    - proxy collision induced by the authored branch layout
+  likely_false_negatives:
+    - semantic summary loss that still passes the bounded proxy checks
+branch_profiles:
+  - family_key: digest-routing
+    base_score: 0.53
+    cost: 1.38
+    evidence: 0.23
+    alias_proxy: 0.4
+    staleness: 0.18
+    active: true
+  - family_key: digest-routing
+    base_score: 0.5
+    cost: 0.86
+    evidence: 0.31
+    alias_proxy: 0.22
+    staleness: 0.1
+    active: false
+  - family_key: digest-summary
+    base_score: 0.7
+    cost: 1.12
+    evidence: 0.18
+    alias_proxy: 0.63
+    staleness: 0.14
+    compressed: true
+    active: true
+  - family_key: parser-routing
+    base_score: 0.61
+    cost: 1.08
+    evidence: 0.16
+    alias_proxy: 0.31
+    staleness: 0.12
+    active: true
+  - family_key: timeout-routing
+    base_score: 0.59
+    cost: 1.04
+    evidence: 0.15
+    alias_proxy: 0.29
+    staleness: 0.12
+    active: false
