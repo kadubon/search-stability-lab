@@ -23,29 +23,32 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", default="artifacts/current_status")
     parser.add_argument("--markdown-path", default="docs/CURRENT_STATUS.md")
+    parser.add_argument("--layer-a-manifest", default="artifacts/layer_a_suite_2026-03-09/manifest.json")
+    parser.add_argument(
+        "--layer-b-summary",
+        nargs="*",
+        default=[
+            "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis/summary_tables.csv",
+            "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis/summary_tables.csv",
+        ],
+    )
+    parser.add_argument(
+        "--layer-b-finals",
+        nargs="*",
+        default=[
+            "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis/final_outcomes.csv",
+            "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis/final_outcomes.csv",
+        ],
+    )
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    layer_a_manifest = "artifacts/layer_a_suite_2026-03-09/manifest.json"
-    gemini_layer_b_dir = "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis"
-    local_layer_b_dir = "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis"
-
-    hypothesis_table = build_layer_a_hypothesis_table(layer_a_manifest)
-    controller_summary = build_controller_comparison_summary(
-        [
-            Path(gemini_layer_b_dir) / "summary_tables.csv",
-            Path(local_layer_b_dir) / "summary_tables.csv",
-        ]
-    )
-    failure_summary = build_failure_channel_summary(layer_a_manifest)
-    fragility_summary = build_structured_output_fragility_summary(
-        [
-            Path(gemini_layer_b_dir) / "final_outcomes.csv",
-            Path(local_layer_b_dir) / "final_outcomes.csv",
-        ]
-    )
+    hypothesis_table = build_layer_a_hypothesis_table(args.layer_a_manifest)
+    controller_summary = build_controller_comparison_summary(args.layer_b_summary)
+    failure_summary = build_failure_channel_summary(args.layer_a_manifest)
+    fragility_summary = build_structured_output_fragility_summary(args.layer_b_finals)
 
     hypothesis_table.to_csv(output_dir / "hypothesis_support.csv", index=False)
     controller_summary.to_csv(output_dir / "controller_comparison_summary.csv", index=False)

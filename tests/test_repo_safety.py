@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -35,20 +36,88 @@ def test_metric_registry_marks_exact_proxy_and_confound_explicitly() -> None:
     assert "confound_indicator" in metric_classes
 
 
-def test_current_status_summary_generation_inputs_are_available() -> None:
-    hypothesis = build_layer_a_hypothesis_table("artifacts/layer_a_suite_2026-03-09/manifest.json")
-    controller_summary = build_controller_comparison_summary(
+def test_current_status_summary_generation_inputs_are_available(tmp_path) -> None:
+    tmp_root = tmp_path / "status_inputs"
+    layer_a_dir = tmp_root / "layer_a_run" / "analysis"
+    layer_a_dir.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
         [
-            "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis/summary_tables.csv",
-            "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis/summary_tables.csv",
+            {
+                "controller_id": "C0",
+                "success_final": False,
+                "failure_channel_true": "avoidable_retirement",
+            },
+            {
+                "controller_id": "C3",
+                "success_final": True,
+                "failure_channel_true": None,
+            },
         ]
+    ).to_csv(layer_a_dir / "final_outcomes.csv", index=False)
+    manifest_path = tmp_root / "layer_a_manifest.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "runs": [
+                    {
+                        "config": "configs/experiments/layer_a_h2_substitution_gemini.yaml",
+                        "analysis_output_dir": str(layer_a_dir),
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
     )
-    fragility = build_structured_output_fragility_summary(
+
+    layer_b_summary_gemini = tmp_root / "gemini_summary.csv"
+    layer_b_summary_local = tmp_root / "local_summary.csv"
+    pd.DataFrame(
         [
-            "artifacts/real_tasks_gemini_nonmock_expanded/real-gemini-nonmock-expanded-20260309T011314Z-b3d4732e/analysis/final_outcomes.csv",
-            "artifacts/real_tasks_local_cpu_nonmock_expanded_suite_2026-03-09/analysis/final_outcomes.csv",
+            {
+                "backbone_model_id": "gemini-2.5-flash-lite",
+                "controller_id": "C3",
+                "success_rate": 0.5,
+                "measurement_scope": "proxy (task harness)",
+            }
         ]
-    )
+    ).to_csv(layer_b_summary_gemini, index=False)
+    pd.DataFrame(
+        [
+            {
+                "backbone_model_id": "gemma3:1b",
+                "controller_id": "C5",
+                "success_rate": 0.25,
+                "measurement_scope": "proxy (task harness)",
+            }
+        ]
+    ).to_csv(layer_b_summary_local, index=False)
+
+    layer_b_finals_gemini = tmp_root / "gemini_finals.csv"
+    layer_b_finals_local = tmp_root / "local_finals.csv"
+    pd.DataFrame(
+        [
+            {
+                "backbone_model_id": "gemini-2.5-flash-lite",
+                "controller_id": "C0",
+                "structured_output_invalidity": True,
+                "structured_output_invalidity_type": "backend_error",
+            }
+        ]
+    ).to_csv(layer_b_finals_gemini, index=False)
+    pd.DataFrame(
+        [
+            {
+                "backbone_model_id": "gemma3:1b",
+                "controller_id": "C5",
+                "structured_output_invalidity": True,
+                "structured_output_invalidity_type": "invalid_json",
+            }
+        ]
+    ).to_csv(layer_b_finals_local, index=False)
+
+    hypothesis = build_layer_a_hypothesis_table(manifest_path)
+    controller_summary = build_controller_comparison_summary([layer_b_summary_gemini, layer_b_summary_local])
+    fragility = build_structured_output_fragility_summary([layer_b_finals_gemini, layer_b_finals_local])
     markdown = render_current_status(
         hypothesis_table=hypothesis,
         controller_summary=controller_summary,
